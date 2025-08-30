@@ -67,9 +67,10 @@ Some of the job categories the model can predict:
 
 ### Running the App
 
-Start the Streamlit server:
+Activate Venv (Virtual Environment Before Activating)
+Start the Flask server:
 ```bash
-streamlit run app.py
+python app.py
 ```
 
 Open the displayed local URL in your browser to use the app.

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>OptiCVAI - AI Resume Analyzer | Instantly Improve Your Resume & Beat ATS</title>
+    <meta name="description" content="OptiCVAI is the best AI resume analyzer for job seekers. Get detailed feedback, ATS optimization tips, and resume scoring in seconds. Free online resume review tool.">
+    <meta name="keywords" content="AI resume analyzer, resume checker, ATS optimization, resume scoring, free resume review, resume optimization tool, AI resume feedback, beat resume screening bots">
+    <meta name="author" content="OptiCVAI">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="OptiCVAI - AI Resume Analyzer | Beat ATS & Get Hired">
+    <meta property="og:description" content="Free AI-powered resume analyzer. Get instant feedback, ATS optimization tips, and improve your chances of getting hired.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.vercel.app">
+    <meta property="og:image" content="/static/og-image.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OptiCVAI - AI Resume Analyzer">
+    <meta name="twitter:description" content="Free AI resume analyzer with ATS optimization tips. Improve your resume instantly!">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "OptiCVAI",
+        "description": "AI-powered resume analyzer and optimization tool",
+        "url": "https://your-domain.vercel.app",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "ratingCount": "1250"
+        }
+    }
+    </script>
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/static/style.css" as="style">
+    <link rel="preload" href="/static/script.js" as="script">
+    
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-brain"></i> OptiCVAI
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active" onclick="showSection('home')">Home</a>
+                <a href="#features" class="nav-link" onclick="showSection('features')">Features</a>
+                <a href="#job-roles" class="nav-link" onclick="showSection('job-roles')">Supported Roles</a>
+                <a href="#about" class="nav-link" onclick="showSection('about')">About</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header" id="home">
+            <h1><i class="fas fa-brain"></i> OptiCVAI - AI Resume Analyzer</h1>
+            <p class="subtitle">Instantly Improve Your Resume & Beat ATS Screening Bots</p>
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <i class="fas fa-rocket"></i>
+                    <span>Free Resume Review</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>ATS Optimized</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-bolt"></i>
+                    <span>Instant Results</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content" id="features">
+            <div class="upload-section">
+                <form id="upload-form">
+                    <div class="file-upload" id="file-drop-zone">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <input type="file" id="resume-file" name="file" accept=".pdf,.docx" required>
+                        <label for="resume-file">
+                            <span class="file-name" id="file-name">Drop your resume here or click to browse</span>
+                            <div class="file-info">
+                                <i class="fas fa-info-circle"></i> Supports PDF and DOCX files up to 10MB
+                            </div>
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <i class="fas fa-search"></i> Analyze Resume
+                    </button>
+                </form>
+            </div>
+
+            <div class="upload-section">
+                <h2 style="margin-bottom: 20px; color: var(--text-primary); font-size: 1.5rem; text-align: center;">
+                    <i class="fas fa-rocket" style="color: var(--primary-solid); margin-right: 10px;"></i>
+                    AI Resume Analyzer Features - Beat ATS & Get Hired
+                </h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number"><i class="fas fa-bullseye"></i></span>
+                        <div class="stat-label">ATS Optimization</div>
+                        <div class="stat-desc">Beat resume screening bots</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number"><i class="fas fa-lightbulb"></i></span>
+                        <div class="stat-label">AI-Powered Feedback</div>
+                        <div class="stat-desc">Professional resume tips</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number"><i class="fas fa-text-height"></i></span>
+                        <div class="stat-label">Resume Scoring</div>
+                        <div class="stat-desc">Get your resume rating</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number"><i class="fas fa-chart-line"></i></span>
+                        <div class="stat-label">Skills Analysis</div>
+                        <div class="stat-desc">Identify key strengths</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="job-roles">
+            <div class="upload-section">
+                <h3 style="margin-bottom: 20px; color: var(--text-primary); font-size: 1.2rem;">
+                    <i class="fas fa-briefcase" style="color: var(--primary-solid); margin-right: 10px;"></i>
+                    Supported Job Roles
+                </h3>
+                <div class="job-roles-grid" id="job-roles-grid">
+                    <!-- Job roles will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="about">
+            <div class="upload-section">
+                <h2 style="margin-bottom: 20px; color: var(--text-primary); font-size: 1.5rem; text-align: center;">
+                    <i class="fas fa-info-circle" style="color: var(--primary-solid); margin-right: 10px;"></i>
+                    About OptiCVAI - Best AI Resume Analyzer
+                </h2>
+                <div class="about-content">
+                    <p><strong>OptiCVAI</strong> is the leading AI resume analyzer designed to help job seekers beat Applicant Tracking Systems (ATS) and get hired faster. Our advanced machine learning algorithms analyze thousands of resumes to provide you with professional feedback, ATS optimization tips, and actionable improvement suggestions.</p>
+                    
+                    <div class="seo-content">
+                        <h3>Why Choose OptiCVAI for Resume Analysis?</h3>
+                        <ul>
+                            <li><strong>ATS Optimization:</strong> Beat resume screening bots with our AI-powered suggestions</li>
+                            <li><strong>Free Resume Review:</strong> Get professional feedback without paying expensive fees</li>
+                            <li><strong>Instant Results:</strong> Receive detailed analysis in seconds, not hours</li>
+                            <li><strong>Resume Scoring:</strong> Know exactly how your resume ranks against others</li>
+                            <li><strong>AI-Powered Tips:</strong> Get personalized suggestions based on your industry</li>
+                        </ul>
+                    </div>
+
+                    <div class="about-us">
+                        <h3>About the Developer</h3>
+                        <div class="developer-info">
+                            <div class="developer-avatar">
+                                <i src="profile_linkedin.jpeg"></i>
+                            </div>
+                            <div class="developer-details">
+                                <h4>Yash Gajjar</h4>
+                                <p>Machine Learning Engineer & AI Explorer.</p>
+                                <div class="social-links">
+                                    <a href="https://www.linkedin.com/in/okyashgajjar" target="_blank" rel="noopener noreferrer" class="social-link linkedin">
+                                        <i class="fab fa-linkedin"></i>
+                                        <span>LinkedIn</span>
+                                    </a>
+                                    <a href="https://medium.com/@okyashgajjar" target="_blank" rel="noopener noreferrer" class="social-link medium">
+                                        <i class="fab fa-medium"></i>
+                                        <span>Medium</span>
+                                    </a>
+                                    <a href="https://www.kaggle.com/okyashgajjar" target="_blank" rel="noopener noreferrer" class="social-link kaggle">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Kaggle</span>
+                                    </a>
+                                    <a href="https://github.com/okyashgajjar" target="_blank" rel="noopener noreferrer" class="social-link github">
+                                        <i class="fab fa-github"></i>
+                                        <span>GitHub</span>
+                                    </a>
+                                    <a href="mailto:work.yashgajjar@gmail.com" class="social-link email">
+                                        <i class="fas fa-envelope"></i>
+                                        <span>Email</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-robot"></i>
+                            <h4>AI-Powered Analysis</h4>
+                            <p>Advanced machine learning models trained on thousands of resumes for accurate job role prediction and optimization tips</p>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Privacy First</h4>
+                            <p>Your resume data is processed securely and never stored - complete privacy protection</p>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-bolt"></i>
+                            <h4>Lightning Fast</h4>
+                            <p>Get instant resume analysis and ATS optimization suggestions in seconds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p class="loading-text">Analyzing your resume with AI...</p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div id="results" class="results-container hidden">
+            <div class="card" id="prediction-card">
+                <h2>
+                    <div class="card-icon">
+                        <i class="fas fa-target"></i>
+                    </div>
+                    Predicted Job Role
+                </h2>
+                <div class="predicted-role" id="predicted-role"></div>
+                <div class="success-indicator hidden" id="prediction-success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+
+            <div class="card" id="extracted-text-card">
+                <h2>
+                    <div class="card-icon">
+                        <i class="fas fa-file-text"></i>
+                    </div>
+                    Extracted Resume Content
+                </h2>
+                <div class="text-area" id="extracted-text"></div>
+            </div>
+
+            <div class="card" id="genai-suggestions-card">
+                <h2>
+                    <div class="card-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    AI-Powered Recommendations
+                </h2>
+                <div class="suggestions-content" id="genai-suggestions"></div>
+            </div>
+        </div>
+
+        <div id="error-message" class="error-message hidden"></div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

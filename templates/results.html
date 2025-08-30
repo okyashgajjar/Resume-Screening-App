@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Resume Analysis Results - OptiCVAI | AI Resume Analyzer</title>
+    <meta name="description" content="View your AI-powered resume analysis results. Get detailed feedback, ATS optimization tips, and professional recommendations to improve your resume.">
+    <meta name="keywords" content="resume analysis results, AI resume feedback, ATS optimization results, resume improvement suggestions">
+    <meta name="author" content="OptiCVAI">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/static/results.css" as="style">
+    <link rel="preload" href="/static/results.js" as="script">
+    
+    <link rel="stylesheet" href="/static/results.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <i class="fas fa-brain"></i> OptiCVAI
+                </a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="/#features" class="nav-link">
+                    <i class="fas fa-rocket"></i> Features
+                </a>
+                <a href="/#job-roles" class="nav-link">
+                    <i class="fas fa-briefcase"></i> Job Roles
+                </a>
+                <a href="/#about" class="nav-link">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="results-header">
+            <div class="header-content">
+                <h1><i class="fas fa-chart-line"></i> Resume Analysis Results</h1>
+                <p class="subtitle">Your AI-powered resume insights and recommendations</p>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="window.location.href='/'">
+                        <i class="fas fa-upload"></i> Analyze Another Resume
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        <i class="fas fa-print"></i> Print Results
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Debug Info (remove in production) -->
+        <div id="debug-info" style="background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; font-family: monospace; font-size: 12px;">
+            <strong>Debug Info:</strong> Page loaded at <span id="load-time"></span>
+        </div>
+
+        <div class="results-grid">
+            <!-- Prediction Card -->
+            <div class="result-card prediction-card" id="prediction-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-target"></i>
+                    </div>
+                    <h2 id="card-title">Predicted Job Role</h2>
+                </div>
+                <div class="card-content">
+                    <div class="predicted-role" id="predicted-role">
+                        <div class="role-badge">
+                            <i class="fas fa-briefcase"></i>
+                            <span id="role-text">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="confidence-indicator">
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidence-fill"></div>
+                        </div>
+                        <span class="confidence-text">AI Confidence: <span id="confidence-percentage">85%</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Recommendations Card - Full Screen -->
+            <div class="result-card recommendations-card full-screen-card" id="recommendations-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h2 id="recommendations-title">AI-Powered Recommendations</h2>
+                </div>
+                <div class="card-content">
+                    <div class="ai-suggestions" id="genai-suggestions">
+                        <div class="loading-placeholder">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading AI recommendations...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ATS Score Card -->
+            <div class="result-card ats-card" id="ats-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h2 id="ats-title">ATS Compatibility Score</h2>
+                </div>
+                <div class="card-content">
+                    <div class="ats-score">
+                        <div class="score-circle">
+                            <svg class="score-svg" viewBox="0 0 120 120">
+                                <circle class="score-bg" cx="60" cy="60" r="54"></circle>
+                                <circle class="score-progress" cx="60" cy="60" r="54" id="ats-score-circle"></circle>
+                            </svg>
+                            <div class="score-text">
+                                <span class="score-number" id="ats-score-number">85</span>
+                                <span class="score-label">/100</span>
+                            </div>
+                        </div>
+                        <div class="score-description">
+                            <h3>Good ATS Compatibility</h3>
+                            <p>Your resume has good compatibility with Applicant Tracking Systems</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps Card -->
+            <div class="result-card next-steps-card" id="next-steps-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <h2 id="next-steps-title">Next Steps</h2>
+                </div>
+                <div class="card-content">
+                    <div class="steps-list">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Review Recommendations</h4>
+                                <p>Go through the AI suggestions above to improve your resume</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Update Your Resume</h4>
+                                <p>Implement the suggested improvements and optimize for ATS</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Re-analyze</h4>
+                                <p>Upload your improved resume to see the enhanced score</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading-overlay" style="display: none;">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <h3>Analyzing Your Resume</h3>
+                <p class="loading-text">Processing with AI...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-container" class="error-container" style="display: none;">
+            <div class="error-card">
+                <div class="error-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>Analysis Failed</h3>
+                <p id="error-message">An error occurred while analyzing your resume.</p>
+                <div class="error-actions">
+                    <button class="btn btn-primary" onclick="window.location.href='/'">
+                        <i class="fas fa-upload"></i> Try Again
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.history.back()">
+                        <i class="fas fa-arrow-left"></i> Go Back
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Pass data directly from Flask to JavaScript
+        {% if result_data %}
+            window.resultData = {{ result_data|tojson|safe }};
+            console.log('Flask data received:', window.resultData);
+        {% else %}
+            window.resultData = null;
+            console.log('No Flask data available');
+        {% endif %}
+    </script>
+    <script src="/static/results.js"></script>
+</body>
+</html>

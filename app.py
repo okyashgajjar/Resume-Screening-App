@@ -26,11 +26,19 @@ app.secret_key = os.getenv('FLASK_SECRET_KEY', 'your-secret-key-change-in-produc
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['STATIC_FOLDER'] = 'static'
 
+# Memory management configuration
+import gc
+gc.set_threshold(100, 5, 5)  # More aggressive garbage collection
+
 # Ensure proper MIME types for CSS files
 @app.after_request
 def add_header(response):
     if response.mimetype == 'text/plain' and request.path.endswith('.css'):
         response.mimetype = 'text/css'
+    
+    # Memory cleanup after each request
+    gc.collect()
+    
     return response
 
 # Rate limiting storage
@@ -299,23 +307,32 @@ def index():
 @app.route('/health')
 def health():
     """
-    Health check endpoint for debugging.
+    Health check endpoint.
     """
-    try:
-        model_status = "loaded" if model is not None else "missing"
-        tfid_status = "loaded" if tfid is not None else "missing"
-        api_key_status = "present" if os.getenv("GENAI_API_KEY") else "missing"
-        
-        return jsonify({
-            'status': 'healthy',
-            'model': model_status,
-            'tfid': tfid_status,
-            'api_key': api_key_status,
-            'timestamp': str(datetime.datetime.now())
-        })
-    except Exception as e:
-        logger.error(f"Health check error: {e}")
-        return jsonify({'status': 'unhealthy', 'error': str(e)}), 500
+    return jsonify({'status': 'healthy', 'timestamp': datetime.datetime.now().isoformat()})
+
+@app.route('/memory')
+def memory_status():
+    """
+    Memory status endpoint for monitoring.
+    """
+    import gc
+    
+    # Force garbage collection
+    gc.collect()
+    
+    # Get basic memory info using built-in modules
+    import sys
+    import os
+    
+    # Get memory usage info
+    memory_info = {
+        'garbage_collection': 'completed',
+        'python_memory_mb': round(sys.getsizeof(globals()) / 1024 / 1024, 2),
+        'gc_stats': gc.get_stats()
+    }
+    
+    return jsonify(memory_info)
 
 @app.route('/results')
 def results():
@@ -330,8 +347,20 @@ def results():
     if 'resume_analysis_results' in session:
         result_data = session['resume_analysis_results']
         logger.info(f"Found results in session: {result_data}")
-        # Clear the session data after retrieving it
-        session.pop('resume_analysis_results', None)
+        
+        # Check if session data is too old (older than 30 minutes)
+        current_time = time.time()
+        if 'last_access_time' in session:
+            time_diff = current_time - session['last_access_time']
+            if time_diff > 1800:  # 30 minutes = 1800 seconds
+                # Clear old session data
+                session.pop('resume_analysis_results', None)
+                session.pop('last_access_time', None)
+                logger.info("Cleared old session data (older than 30 minutes)")
+                return render_template('results.html', result_data=None)
+        
+        # Update access time
+        session['last_access_time'] = current_time
         return render_template('results.html', result_data=result_data)
     else:
         logger.info("No results in session, showing empty results page")
@@ -402,6 +431,15 @@ def predict():
         session['resume_analysis_results'] = result_data
         logger.info(f"Stored results in session: {result_data}")
         
+        # Memory cleanup and monitoring
+        import psutil
+        process = psutil.Process()
+        memory_usage = process.memory_info().rss / 1024 / 1024  # MB
+        logger.info(f"Memory usage after processing: {memory_usage:.2f} MB")
+        
+        # Force garbage collection
+        gc.collect()
+        
         # Return redirect response
         return jsonify({
             'success': True,
@@ -411,6 +449,20 @@ def predict():
     except Exception as e:
         logger.error(f"Error in predict function: {str(e)}", exc_info=True)
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+    finally:
+        # Always cleanup memory, even if there's an error
+        gc.collect()
+
+@app.route('/clear-session')
+def clear_session():
+    """
+    Clears the session data when user is done viewing results.
+    """
+    from flask import session
+    if 'resume_analysis_results' in session:
+        session.pop('resume_analysis_results', None)
+        logger.info("Session data cleared")
+    return jsonify({'success': True, 'message': 'Session cleared'})
 
 # Serve static files with proper MIME types
 @app.route('/static/<path:filename>')

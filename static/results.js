@@ -133,6 +133,40 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Mobile Navigation
     initializeMobileNav();
     
+    // Clear Flask session when starting new analysis
+    function clearFlaskSession() {
+        fetch('/clear-session', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Session cleared:', data);
+        })
+        .catch(error => {
+            console.error('Error clearing session:', error);
+        });
+    }
+    
+    // Clear session when user clicks "Analyze Another Resume"
+    const analyzeAnotherBtn = document.querySelector('button[onclick*="window.location.href=\'/\'"]');
+    if (analyzeAnotherBtn) {
+        analyzeAnotherBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            clearFlaskSession();
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 100);
+        });
+    }
+    
+    // Clear session when page is unloaded (user navigates away)
+    window.addEventListener('beforeunload', function() {
+        clearFlaskSession();
+    });
+    
     // Define functions inside the DOMContentLoaded scope
     function initializeMobileNav() {
         const navToggle = document.getElementById('nav-toggle');

@@ -22,6 +22,17 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'your-secret-key-change-in-production')
 
+# Configure static file serving with proper MIME types
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['STATIC_FOLDER'] = 'static'
+
+# Ensure proper MIME types for CSS files
+@app.after_request
+def add_header(response):
+    if response.mimetype == 'text/plain' and request.path.endswith('.css'):
+        response.mimetype = 'text/css'
+    return response
+
 # Rate limiting storage
 request_history = {}
 
@@ -400,6 +411,24 @@ def predict():
     except Exception as e:
         logger.error(f"Error in predict function: {str(e)}", exc_info=True)
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+
+# Serve static files with proper MIME types
+@app.route('/static/<path:filename>')
+def static_files(filename):
+    """Serve static files with proper MIME types"""
+    from flask import send_from_directory
+    
+    # Set correct MIME types for different file types
+    if filename.endswith('.css'):
+        return send_from_directory('static', filename, mimetype='text/css')
+    elif filename.endswith('.js'):
+        return send_from_directory('static', filename, mimetype='application/javascript')
+    elif filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg'):
+        return send_from_directory('static', filename, mimetype='image/png')
+    elif filename.endswith('.ico'):
+        return send_from_directory('static', filename, mimetype='image/x-icon')
+    else:
+        return send_from_directory('static', filename)
 
 if __name__ == '__main__':
     # Production configuration
